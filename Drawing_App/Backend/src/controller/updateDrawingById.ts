@@ -16,7 +16,12 @@ const updateDrawingById = async (req: Request, res: Response) => {
             return res.status(404).send('drawing not found');
         }
 
-        drawing.drawingData = newdata;
+        if (Array.isArray(newdata)) {
+            drawing.drawingData = drawing.drawingData.concat(newdata);
+        } else {
+            return res.status(400).send('Invalid data format');
+        }
+
 
         drawing.save();
 

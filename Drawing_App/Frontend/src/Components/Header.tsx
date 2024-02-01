@@ -1,9 +1,33 @@
 import { Link } from "react-router-dom";
 import { useUpdateDrawingMutation } from "../Redux/Slices/Api";
-import { useAppSelector } from "../Redux/Hooks";
+import { useAppSelector,useAppDispatch } from "../Redux/Hooks";
+import { usePostDrawingMutation } from "../Redux/Slices/Api";
+import { myid } from "../Redux/Slices/data";
 
 function Header(props:any) {
 
+
+  const dispatch = useAppDispatch();
+  
+  const [newdrawing,{data:savedata,isSuccess,isError,error}] = usePostDrawingMutation();
+  
+  
+  if (isSuccess) {
+    console.log('ye aayi waha se id ', savedata._id);
+    dispatch(myid(savedata._id));
+
+  }
+  if(isError){
+    console.log('ye tha error',error);
+  }
+
+  const savekardebhai  = async()=>{
+    await newdrawing("");
+  }
+
+    
+
+////////
   
   const [updatedrawing] = useUpdateDrawingMutation();
   const data = useAppSelector(state=>state.myid)
@@ -28,7 +52,7 @@ function Header(props:any) {
 
   const handlenewdrawing = ()=>{
 
-    window.location.href = '/';
+    savekardebhai();
     alert('New WorkSpace Created');
   }
 

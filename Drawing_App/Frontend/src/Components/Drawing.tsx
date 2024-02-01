@@ -1,10 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import Header from './Header';
+import { useAppSelector } from '../Redux/Hooks';
 
-import { usePostDrawingMutation } from '../Redux/Slices/Api';
-import { useAppDispatch } from '../Redux/Hooks';
-import { myid } from '../Redux/Slices/data';
 
 
 interface DrawingProps {
@@ -15,27 +13,6 @@ interface DrawingProps {
 
 const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
 
-  const dispatch = useAppDispatch();
-  
-  const [newdrawing,{data,isSuccess,isError,error}] = usePostDrawingMutation();
-  
-  
-  if (isSuccess) {
-    console.log('ye aayi waha se id ', data._id);
-    dispatch(myid(data._id));
-
-  }
-  if(isError){
-    console.log('ye tha error',error);
-  }
-
-  const savekardebhai  = async()=>{
-    await newdrawing("");
-  }
-
-  useEffect(()=>{
-    savekardebhai();
-  },[]);
 
 
   const [tool, setTool] = useState<string>('pen');
@@ -70,13 +47,14 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
 
   
   console.log('Lines:', lines);
+
+  const storeid = useAppSelector(state=>state.myid)
   
   
   return (
     <div>
       <Header lines = {lines}  />  
-
-      
+      <h1>Drawing ID - {storeid}</h1>
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
@@ -84,6 +62,7 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
+        
 
         {
           datalines &&         
@@ -131,6 +110,7 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
       >
         <option value="pen">Pen</option>
         <option value="eraser">Eraser</option>
+        
       </select>
     </div>
   );
