@@ -2,9 +2,20 @@ import React, { useState, useRef } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import Header from './Header';
 
-const Drawing: React.FC = () => {
+interface DrawingProps {
+  datalines: any;
+}
 
 
+
+const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
+
+
+
+  console.log('inside drawing', datalines);
+
+
+  
 
   const [tool, setTool] = useState<string>('pen');
   const [lines, setLines] = useState<any[]>([]);
@@ -42,7 +53,9 @@ const Drawing: React.FC = () => {
   
   return (
     <div>
-      <Header lines = {lines}  />
+      <Header lines = {lines}  />  
+
+
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
@@ -50,6 +63,27 @@ const Drawing: React.FC = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
+
+        {
+          datalines &&         
+          <Layer>
+          {datalines.drawingData.map((line:any, i:any) => (
+            <Line
+              key={i}
+              points={line.points}
+              stroke="#df4b26"
+              strokeWidth={5}
+              tension={0.5}
+              lineCap="round"
+              lineJoin="round"
+              globalCompositeOperation={
+                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+              }
+            />
+          ))}
+        </Layer>
+        }
+
         <Layer>
           {lines.map((line, i) => (
             <Line

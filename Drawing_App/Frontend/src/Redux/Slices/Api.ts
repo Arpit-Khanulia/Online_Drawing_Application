@@ -13,15 +13,24 @@ export const drawingApi = createApi({
     }),
 
     getDrawing: builder.query({
-      query: (id: string) => ({
+      query: (id: string|undefined) => ({
         url: `/drawings/${id}`,
         method: 'GET',
       }),
     }),
+
+    updateDrawing: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/drawings/${id}`,
+        method: 'PUT',
+        body,
+      }),
+    }),
+
   }),
 })
 
-export const { usePostDrawingMutation } = drawingApi
+export const { usePostDrawingMutation,useGetDrawingQuery,useUpdateDrawingMutation } = drawingApi
 
 
 

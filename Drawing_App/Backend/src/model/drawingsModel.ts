@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 
 const drawingSchema = new mongoose.Schema({
-    drawingData: { type: Object, required: true }
+    drawingData: Array
 });
 
 

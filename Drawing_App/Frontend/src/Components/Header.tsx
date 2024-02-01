@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
-import { usePostDrawingMutation } from "../Redux/Slices/Api";
+import { usePostDrawingMutation, useUpdateDrawingMutation } from "../Redux/Slices/Api";
 
 function Header(props:any) {
 
   
-  const [newuser,{data:postData,isError:isPostError,isSuccess:isPostSuccess}] = usePostDrawingMutation();
+  const [newdrawing,{data:postData,isError:isPostError,isSuccess:isPostSuccess}] = usePostDrawingMutation();
+  const [updatedrawing] = useUpdateDrawingMutation();
   
   const handlesave = ()=>{
-    
-      console.log('my data ',props.lines);
-      newuser(props.lines);
-      if(isPostSuccess) console.log('data saved sucessfully');
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (id) {
+      updatedrawing({id: id, body: props.lines });
+    } else {
+      newdrawing(props.lines);
+    }
+
+    if(isPostSuccess) console.log('data saved sucessfully');
       
   }
 

@@ -3,9 +3,12 @@ import { Drawingdb } from '../model/drawingsModel';
 
 
 
+
+
+
 const updateDrawingById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { drawings } = req.body;
+    const newdata:any = req.body;
     
     try {
         const drawing = await Drawingdb.findById(id);
@@ -14,7 +17,7 @@ const updateDrawingById = async (req: Request, res: Response) => {
             return res.status(404).send('drawing not found');
         }
 
-        drawing.drawingData = drawings;
+        drawing.drawingData = newdata;
 
         drawing.save();
         

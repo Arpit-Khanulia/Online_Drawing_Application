@@ -2,17 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import  myslice  from './Slices/data'
 import { drawingApi } from './Slices/Api'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import authUser from './Slices/User'
 
 export const store = configureStore({
   reducer: {
 
     mycounter:myslice, 
-    saveUserAndToken:authUser,
     [drawingApi.reducerPath] :drawingApi.reducer
     
   },
-
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware().concat(drawingApi.middleware),
 })

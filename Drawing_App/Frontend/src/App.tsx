@@ -1,5 +1,6 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
 import Drawing from "./Components/Drawing"
+import GetDrawing from "./screen/GetDrawing"
 
 
 const App = () => {
@@ -8,8 +9,8 @@ const App = () => {
 
       <Routes>
 
-        <Route path="/"  element={<Drawing/>} />
-
+        <Route path="/"  element={<Drawing datalines={""} />} />
+        <Route path="/drawings/:id"  element={<GetDrawing/>} />
       </Routes>
     
     </BrowserRouter>
