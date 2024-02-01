@@ -15,6 +15,7 @@ function Header(props:any) {
 
     console.log('this should be iddddddddddddddddddd ',data);
     updatedrawing({id: data, body: props.lines });
+    alert('Drawing Saved');
       
   }
 
@@ -23,6 +24,12 @@ function Header(props:any) {
     const url = 'http://localhost:5173/drawings/'+data;
     navigator.clipboard.writeText(url);
     alert('Copied to clipboard!');
+  }
+
+  const handlenewdrawing = ()=>{
+
+    window.location.href = '/';
+    alert('New WorkSpace Created');
   }
 
   return (
@@ -40,12 +47,12 @@ function Header(props:any) {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <Link
-                    to="/pay"
+                  <button
+                    onClick={handlenewdrawing}
                     className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Create New Drawing
-                  </Link>
+                  </button>
 
                   <button
 

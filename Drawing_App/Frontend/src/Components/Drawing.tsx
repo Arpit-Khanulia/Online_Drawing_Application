@@ -12,6 +12,7 @@ interface DrawingProps {
 }
 
 
+
 const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
 
   const dispatch = useAppDispatch();
@@ -75,7 +76,7 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
     <div>
       <Header lines = {lines}  />  
 
-
+      
       <Stage
         width={window.innerWidth}
         height={window.innerHeight}
