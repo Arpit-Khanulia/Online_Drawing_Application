@@ -18,6 +18,13 @@ function Header(props:any) {
       
   }
 
+  const handlecopy = ()=>{
+
+    const url = 'http://localhost:5173/drawings/'+data;
+    navigator.clipboard.writeText(url);
+    alert('Copied to clipboard!');
+  }
+
   return (
     <div>
       <nav className="bg-gray-800">
@@ -40,12 +47,13 @@ function Header(props:any) {
                     Create New Drawing
                   </Link>
 
-                  <Link
-                    to="/viewbalance"
+                  <button
+
+                    onClick={handlecopy}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Copy Link
-                  </Link>
+                  </button>
 
                   <Link
                   onClick={handlesave}
