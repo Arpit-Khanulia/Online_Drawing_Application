@@ -12,6 +12,7 @@ const updateDrawingById = async (req, res) => {
         }
         drawing.drawingData = newdata;
         drawing.save();
+        console.log('data updated successfully in id ', id);
         res.status(200).json(drawing);
     }
     catch (error) {

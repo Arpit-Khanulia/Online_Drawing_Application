@@ -2,18 +2,19 @@ import { Request, Response } from 'express';
 import { Drawingdb } from '../model/drawingsModel';
 
 
-interface DrawingData {
-      drawings: string;
-    }
+
 
 async function createDrawing(req: Request, res: Response) {
   try {
-    const drawingData:DrawingData = req.body;
-    console.log(drawingData);
+
     
-    const newDrawing = new Drawingdb({ drawingData });
+    const newDrawing = new Drawingdb();
     await newDrawing.save();
+
+    console.log('create ke time pe print hora',newDrawing);
+    
     res.status(201).json(newDrawing);
+
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

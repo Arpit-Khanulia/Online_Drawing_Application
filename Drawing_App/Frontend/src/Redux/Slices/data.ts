@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const myslice = createSlice({
 
-    initialState:0,
-    name:'counter',
+    initialState:'',
+    name:'id',
     reducers:{
-
-        increament:(state)=>state+1,
-        decreament:(state)=>state-1,
-        byfive:(state,action)=>state + action.payload
+        myid:(state,action)=>state = action.payload
     }
 })
 
 
-export const {increament,decreament,byfive} = myslice.actions;
+export const {myid} = myslice.actions;
 export default myslice.reducer;
+
+
+

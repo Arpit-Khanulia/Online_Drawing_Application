@@ -5,7 +5,7 @@ export const drawingApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
   endpoints: (builder) => ({
     postDrawing: builder.mutation({
-      query: (body) => ({
+      query: (body:any) => ({
         url: '/drawings',
         method: 'POST',
         body,

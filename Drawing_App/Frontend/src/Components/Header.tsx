@@ -1,23 +1,20 @@
 import { Link } from "react-router-dom";
-import { usePostDrawingMutation, useUpdateDrawingMutation } from "../Redux/Slices/Api";
+import { useUpdateDrawingMutation } from "../Redux/Slices/Api";
+import { useAppSelector } from "../Redux/Hooks";
 
 function Header(props:any) {
 
   
-  const [newdrawing,{data:postData,isError:isPostError,isSuccess:isPostSuccess}] = usePostDrawingMutation();
   const [updatedrawing] = useUpdateDrawingMutation();
+  const data = useAppSelector(state=>state.myid)
+
+  console.log('ye he store ki id',data);
+  
   
   const handlesave = ()=>{
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    if (id) {
-      updatedrawing({id: id, body: props.lines });
-    } else {
-      newdrawing(props.lines);
-    }
-
-    if(isPostSuccess) console.log('data saved sucessfully');
+    console.log('this should be iddddddddddddddddddd ',data);
+    updatedrawing({id: data, body: props.lines });
       
   }
 
@@ -106,44 +103,6 @@ function Header(props:any) {
           </div>
         </div>
 
-        <div className="md:hidden" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="#"
-              className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Dashboard
-            </Link>
-
-            <Link
-              to="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Team
-            </Link>
-
-            <Link
-              to="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Projects
-            </Link>
-
-            <Link
-              to="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Calendar
-            </Link>
-
-            <Link
-              to="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >
-              Reports
-            </Link>
-          </div>
-        </div>
       </nav>
     </div>
     

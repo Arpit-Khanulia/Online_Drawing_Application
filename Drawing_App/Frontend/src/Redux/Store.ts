@@ -6,7 +6,7 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 export const store = configureStore({
   reducer: {
 
-    mycounter:myslice, 
+    myid:myslice, 
     [drawingApi.reducerPath] :drawingApi.reducer
     
   },

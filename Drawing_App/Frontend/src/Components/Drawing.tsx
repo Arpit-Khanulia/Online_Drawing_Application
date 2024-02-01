@@ -1,21 +1,41 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import Header from './Header';
+
+import { usePostDrawingMutation } from '../Redux/Slices/Api';
+import { useAppDispatch } from '../Redux/Hooks';
+import { myid } from '../Redux/Slices/data';
+
 
 interface DrawingProps {
   datalines: any;
 }
 
 
-
 const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
 
-
-
-  console.log('inside drawing', datalines);
-
-
+  const dispatch = useAppDispatch();
   
+  const [newdrawing,{data,isSuccess,isError,error}] = usePostDrawingMutation();
+  
+  
+  if (isSuccess) {
+    console.log('ye aayi waha se id ', data._id);
+    dispatch(myid(data._id));
+
+  }
+  if(isError){
+    console.log('ye tha error',error);
+  }
+
+  const savekardebhai  = async()=>{
+    await newdrawing("");
+  }
+
+  useEffect(()=>{
+    savekardebhai();
+  },[]);
+
 
   const [tool, setTool] = useState<string>('pen');
   const [lines, setLines] = useState<any[]>([]);

@@ -4,10 +4,9 @@ exports.createDrawing = void 0;
 const drawingsModel_1 = require("../model/drawingsModel");
 async function createDrawing(req, res) {
     try {
-        const drawingData = req.body;
-        console.log(drawingData);
-        const newDrawing = new drawingsModel_1.Drawingdb({ drawingData });
+        const newDrawing = new drawingsModel_1.Drawingdb();
         await newDrawing.save();
+        console.log('create ke time pe print hora', newDrawing);
         res.status(201).json(newDrawing);
     }
     catch (error) {

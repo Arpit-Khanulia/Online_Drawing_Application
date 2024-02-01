@@ -4,9 +4,8 @@ import { Drawingdb } from '../model/drawingsModel';
 
 
 
-
-
 const updateDrawingById = async (req: Request, res: Response) => {
+    
     const { id } = req.params;
     const newdata:any = req.body;
     
@@ -20,6 +19,9 @@ const updateDrawingById = async (req: Request, res: Response) => {
         drawing.drawingData = newdata;
 
         drawing.save();
+
+        console.log('data updated successfully in id ',id);
+        
         
         res.status(200).json(drawing);
     } catch (error) {
