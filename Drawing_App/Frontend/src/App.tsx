@@ -8,7 +8,6 @@ const App = () => {
     <BrowserRouter>
 
       <Routes>
-
         <Route path="/"  element={<Drawing datalines={""} />} />
         <Route path="/drawings/:id"  element={<GetDrawing/>} />
       </Routes>

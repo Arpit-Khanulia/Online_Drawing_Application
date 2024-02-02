@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef} from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import Header from './Header';
 import { useAppSelector } from '../Redux/Hooks';
-
+import { useGetDrawingQuery } from '../Redux/Slices/Api';
 
 
 interface DrawingProps {
@@ -10,11 +10,9 @@ interface DrawingProps {
 }
 
 
-
 const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
-
-
-
+  
+  
   const [tool, setTool] = useState<string>('pen');
   const [lines, setLines] = useState<any[]>([]);
   const isDrawing = useRef<boolean>(false);
@@ -24,6 +22,8 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y] }]);
   };
+  
+  
   
   const handleMouseMove = (e: any) => {
     // no drawing - skipping
@@ -44,11 +44,14 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
   const handleMouseUp = () => {
     isDrawing.current = false;
   };
-
+  
   
   console.log('Lines:', lines);
-
+  
   const storeid = useAppSelector(state=>state.myid)
+  
+  const {data} = useGetDrawingQuery(storeid);
+  if(!datalines) datalines = data;
   
   
   return (
@@ -81,11 +84,8 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
               }
             />
           ))}
-        </Layer>
-        }
 
-        <Layer>
-          {lines.map((line, i) => (
+        {lines.map((line, i) => (
             <Line
               key={i}
               points={line.points}
@@ -100,7 +100,13 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
             />
           ))}
         </Layer>
+        }
+
+        <Layer>
+
+        </Layer>
       </Stage>
+
       <select 
         className="fixed top-0 left-0"
         value={tool}
@@ -110,6 +116,7 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
       >
         <option value="pen">Pen</option>
         <option value="eraser">Eraser</option>
+        <option value="rectangle">Rectangle</option>
         
       </select>
     </div>
