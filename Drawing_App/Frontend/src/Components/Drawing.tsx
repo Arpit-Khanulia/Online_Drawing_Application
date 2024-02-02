@@ -3,6 +3,7 @@ import { Stage, Layer, Line } from 'react-konva';
 import Header from './Header';
 import { useAppSelector } from '../Redux/Hooks';
 import { useGetDrawingQuery } from '../Redux/Slices/Api';
+import Rectangle from './Rectangle';
 
 
 interface DrawingProps {
@@ -58,7 +59,7 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
     <div>
       <Header lines = {lines}  />  
       <h1>Drawing ID - {storeid}</h1>
-      <Stage
+{ (tool == 'rectangle') ? <Rectangle/>  :   <Stage
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={handleMouseDown}
@@ -84,8 +85,11 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
               }
             />
           ))}
+        </Layer>
+        }
 
-        {lines.map((line, i) => (
+        <Layer>
+          {lines.map((line, i) => (
             <Line
               key={i}
               points={line.points}
@@ -100,13 +104,8 @@ const Drawing: React.FC<DrawingProps>  = ({ datalines }) => {
             />
           ))}
         </Layer>
-        }
-
-        <Layer>
-
-        </Layer>
-      </Stage>
-
+      </Stage>}
+      
       <select 
         className="fixed top-0 left-0"
         value={tool}
